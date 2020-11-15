@@ -1,5 +1,5 @@
-FROM python:3-alpine
-LABEL maintainer synoniem https://github.com/synoniem
+FROM python:3-alpine AS mosquitto-tls
+LABEL maintainer frippe75 https://github.com/frippe75
 
 # Set environment variables.
 ENV TERM=xterm-color
@@ -22,21 +22,20 @@ RUN \
 		mosquitto-clients && \
 	rm -f /var/cache/apk/* && \
 	pip install --upgrade pip && \
-	pip install pyRFC3339 configobj ConfigArgParse
+	pip install pyRFC3339 configobj ConfigArgParse cloudflare
 
 COPY run.sh /run.sh
 COPY certbot.sh /certbot.sh
 COPY restart.sh /restart.sh
-COPY croncert.sh /etc/periodic/weekly/croncert.sh
+COPY croncert.sh /etc/periodic/monthly/croncert.sh
 RUN \
 	chmod +x /run.sh && \
 	chmod +x /certbot.sh && \
 	chmod +x /restart.sh && \
-	chmod +x /etc/periodic/weekly/croncert.sh
+	chmod +x /etc/periodic/monthly/croncert.sh
 
 EXPOSE 1883
 EXPOSE 8883
-EXPOSE 80
 
 # This will run any scripts found in /scripts/*.sh
 # then start Apache
