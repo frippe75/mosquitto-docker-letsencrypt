@@ -51,14 +51,14 @@ else
 			then
 				echo "Obtaining cert for $DOMAIN using DNS challenge"
                                 certbot certonly \
-                                        --standalone \
                                         --agree-tos \
-                                        --preferred-challenges dns-01 \
+					--dns-cloudflare \
 					--dns-cloudflare-credentials cloudflare-api-token \
 					--dns-cloudflare-propagation-seconds 10 \
                                         -n \
                                         -d $DOMAIN \
                                         -m $EMAIL
+				cat /var/log/letsencrypt/letsencrypt.log
                         else
                                 echo "Obtaining cert for $DOMAIN using HTTP challenge"
                                 certbot certonly \

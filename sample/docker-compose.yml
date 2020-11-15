@@ -1,7 +1,7 @@
 version: '2'
 services:
   mqtt:
-    image: localhost/mosquitto-tls
+    image: mosquitto-tls
       #networks:
       #- backend-net
     ports:
@@ -16,6 +16,7 @@ services:
       - ./mosquitto/conf/:/mosquitto/conf:Z
       - ./mosquitto/log/:/mosquitto/log:Z
       - ./letsencrypt:/etc/letsencrypt:Z
+      - ./cloudflare-api-token:/cloudflare-api-token:Z
         #- ./scripts:/scripts
     container_name: mqtt-tls
     restart: always

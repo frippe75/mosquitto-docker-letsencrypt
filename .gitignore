@@ -8,4 +8,6 @@ ehthumbs.db
 Thumbs.db
 
 .rnd
-cloudflare-api-token
+sample/cloudflare-api-token
+sample/letsencrypt/csr/*
+sample/letsencrypt/renewal/*

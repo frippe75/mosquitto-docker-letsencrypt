@@ -9,20 +9,29 @@ RUN \
 	mkdir /mosquitto && \
 	mkdir /mosquitto/log && \
 	mkdir /mosquitto/conf && \
+	cat /etc/resolv.conf && \
+	nslookup mirrors.ustc.edu.cn && \
+	sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
 	apk update && \
 	apk upgrade && \
 	apk add \
+		build-base \
+		python3-dev \
+		libffi-dev \
+                libressl-dev \
 		bash \
 		coreutils \
 		nano \
-        py3-crypto \
+        	py3-crypto \
 		ca-certificates \
-        certbot \
+        	certbot \
 		mosquitto \
 		mosquitto-clients && \
 	rm -f /var/cache/apk/* && \
 	pip install --upgrade pip && \
-	pip install pyRFC3339 configobj ConfigArgParse cloudflare
+	pip install pyRFC3339 configobj ConfigArgParse cloudflare 
+RUN \
+	pip3 install certbot-dns-cloudflare
 
 COPY run.sh /run.sh
 COPY certbot.sh /certbot.sh
