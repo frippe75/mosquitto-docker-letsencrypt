@@ -9,9 +9,6 @@ RUN \
 	mkdir /mosquitto && \
 	mkdir /mosquitto/log && \
 	mkdir /mosquitto/conf && \
-	cat /etc/resolv.conf && \
-	nslookup mirrors.ustc.edu.cn && \
-	sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
 	apk update && \
 	apk upgrade && \
 	apk add \
