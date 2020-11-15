@@ -35,7 +35,8 @@ if [ -d "$FOLDER" ]; then
 else
         if [ ! -z "$DOMAIN" ]; then
                 if [ ! -z "$EMAIL" ]; then
-                        if [ ! -z "$TESTCERT" ]; then
+                        if [ ! -z "$TESTCERT" ]
+			then
                                 echo "Obtaining TEST cert for $DOMAIN"
                                 certbot certonly \
                                         --staging \
@@ -46,8 +47,20 @@ else
                                         -n \
                                         -d $DOMAIN \
                                         -m $EMAIL
+			elif [ ! -z "$CLOUDFLARE" ]
+			then
+				echo "Obtaining cert for $DOMAIN using DNS challenge"
+                                certbot certonly \
+                                        --standalone \
+                                        --agree-tos \
+                                        --preferred-challenges dns-01 \
+					--dns-cloudflare-credentials cloudflare-api-token \
+					--dns-cloudflare-propagation-seconds 10 \
+                                        -n \
+                                        -d $DOMAIN \
+                                        -m $EMAIL
                         else
-                                echo "Obtaining cert for $DOMAIN"
+                                echo "Obtaining cert for $DOMAIN using HTTP challenge"
                                 certbot certonly \
                                         --standalone \
                                         --agree-tos \

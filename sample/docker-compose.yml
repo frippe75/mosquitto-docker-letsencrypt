@@ -1,25 +1,24 @@
 version: '2'
 services:
   mqtt:
-    image: bitrox/mqtt
-    networks:
-      - backend-net
+    image: localhost/mosquitto-tls
+      #networks:
+      #- backend-net
     ports:
       - 1883:1883
       - 8083:8083
       - 8883:8883
-      - 8116:80
     environment:
-      - DOMAIN=mqtt.bitrox.io
-      - EMAIL=proxy@bitrox.io
+      - DOMAIN=frippe.com
+      - EMAIL=frippe@frippe.com
     volumes:
-      - ./mosquitto/conf/:/mosquitto/conf
-      - ./mosquitto/log/:/mosquitto/log
-      - ./letsencrypt:/etc/letsencrypt
-      - ./scripts:/scripts
-    container_name: mqtt
+      - ./mosquitto/conf/:/mosquitto/conf:Z
+      - ./mosquitto/log/:/mosquitto/log:Z
+      - ./letsencrypt:/etc/letsencrypt:Z
+        #- ./scripts:/scripts
+    container_name: mqtt-tls
     restart: always
-networks:
-  backend-net:
-    external:
-      name: backend-net
+#networks:
+#  backend-net:
+#    external:
+#      name: backend-net
