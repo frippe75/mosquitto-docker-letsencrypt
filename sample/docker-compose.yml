@@ -11,6 +11,7 @@ services:
     environment:
       - DOMAIN=frippe.com
       - EMAIL=frippe@frippe.com
+      - CLOUDFLARE=yes
     volumes:
       - ./mosquitto/conf/:/mosquitto/conf:Z
       - ./mosquitto/log/:/mosquitto/log:Z
